@@ -1,15 +1,12 @@
 package com.ohmgeek.jukebox.common;
 
-import io.vertx.core.Handler;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServerRequest;
-import io.vertx.ext.web.Router;
 
 import javax.inject.Inject;
 import java.util.Set;
 
-public class VerticleManager implements GuiceService{
+public class VerticleManager implements GuiceService {
 
     private final Vertx vertx;
     private final Set<Verticle> verticleSet;

@@ -1,7 +1,6 @@
 package com.ohmgeek.jukebox.queueing;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
 import com.ohmgeek.jukebox.queueing.handler.AddSongToQueueHandler;
 import io.vertx.core.Handler;
