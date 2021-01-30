@@ -1,17 +1,14 @@
 package com.ohmgeek.jukebox.queueing;
 
-import com.ohmgeek.jukebox.domain.AddSongToQueueRequest;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
-import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.DeliveryOptions;
-import io.vertx.core.eventbus.Message;
-import io.vertx.rxjava.ext.web.Router;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Set;
+
+import static com.ohmgeek.jukebox.common.Namespaces.SERVER_TO_CLIENT;
 
 /**
  * This service manages the local queue of songs to be played.
@@ -27,10 +24,8 @@ public class QueueService extends AbstractVerticle {
 
     @Override
     public void start() {
-        // start up dependencies as required.
-        handlers.forEach(handler -> {
-            getVertx().eventBus().localConsumer(handler.getClass().getSimpleName(), handler);
-        });
+        // start up exposed handlers
+        handlers.forEach(handler -> getVertx().eventBus().localConsumer(SERVER_TO_CLIENT.name(), handler));
     }
 
 

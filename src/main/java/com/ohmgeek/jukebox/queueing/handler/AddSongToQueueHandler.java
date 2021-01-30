@@ -17,6 +17,7 @@ public class AddSongToQueueHandler implements Handler<Message<AddSongToQueueRequ
     public AddSongToQueueHandler(JukeboxQueue queue) {
         this.queue = queue;
     }
+
     @Override
     public void handle(Message<AddSongToQueueRequest> addSongToQueueHandlerMessage) {
         AddSongToQueueRequest request = addSongToQueueHandlerMessage.body();

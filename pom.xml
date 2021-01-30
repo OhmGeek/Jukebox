@@ -33,9 +33,9 @@
 			<version>${vertx.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-web</artifactId>
-			<version>${vertx.version}</version>
+			<groupId>io.socket</groupId>
+			<artifactId>socket.io-server</artifactId>
+			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>

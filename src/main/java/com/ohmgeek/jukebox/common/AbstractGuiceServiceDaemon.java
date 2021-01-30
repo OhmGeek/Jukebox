@@ -17,7 +17,7 @@ public abstract class AbstractGuiceServiceDaemon extends AbstractIdleService {
 
     public AbstractGuiceServiceDaemon(Module... modules) {
         // Create the injector for the provided modules
-        injector = Guice.createInjector(new JukeboxServerModule());
+        injector = Guice.createInjector(modules);
         guiceServices = Lists.newArrayList();
     }
 
