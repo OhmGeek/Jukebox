@@ -7,9 +7,14 @@ import io.vertx.core.Vertx;
 
 public class CommonModule extends AbstractModule {
 
+    @Override
+    protected void configure() {
+        bind(VerticleManager.class).asEagerSingleton();
+    }
+
     @Provides
     @Singleton
     public Vertx providesVertxInstance() {
-        return Vertx.factory.vertx();
+        return Vertx.vertx();
     }
 }

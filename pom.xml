@@ -21,8 +21,9 @@
 	<description>Jukebox Server, following same API as the previous UraDJ system</description>
 
 	<properties>
-		<vertx.version>3.4.1</vertx.version>
+		<vertx.version>4.0.0</vertx.version>
 		<guice.version>4.2.3</guice.version>
+		<socketio.version>1.0.3</socketio.version>
 		<logback.version>1.1.7</logback.version>
 	</properties>
 
@@ -35,7 +36,7 @@
 		<dependency>
 			<groupId>io.socket</groupId>
 			<artifactId>socket.io-server</artifactId>
-			<version>1.0.3</version>
+			<version>${socketio.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>

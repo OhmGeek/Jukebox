@@ -3,7 +3,6 @@ package com.ohmgeek.jukebox.websocket;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.sun.xml.internal.ws.api.pipe.Engine;
 import io.socket.engineio.server.EngineIoServer;
 import io.socket.socketio.server.SocketIoNamespace;
 import io.socket.socketio.server.SocketIoServer;
