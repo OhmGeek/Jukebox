@@ -1,0 +1,41 @@
+syntax = "proto3";
+package com.ohmgeek.jukebox.domain;
+option java_multiple_files = true;
+
+enum MusicBackend {
+  YOUTUBE = 0;
+}
+
+message Song {
+  MusicBackend backend = 1;
+  string url = 2;
+  string name = 3;
+}
+
+// Defines a song to add to the queue.
+message AddSongToQueueRequest {
+  Song song = 1;
+}
+
+// Determines the status of adding a song to a queue
+message AddSongToQueueResponse {
+}
+
+
+message SearchSongRequest {
+  string searchTerm = 1;
+}
+
+message SearchSongResponse {
+  repeated Song song = 1;
+}
+
+// Get the current status of the queue.
+message GetQueueRequest {
+
+}
+
+message GetQueueResponse {
+  int32 size = 1;
+  repeated Song queue = 3;
+}
