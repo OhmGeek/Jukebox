@@ -89,11 +89,11 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <classesDirectory>${project.build.directory}/dist</classesDirectory>
+                            <classesDirectory>${project.build.directory}/source/target/dist</classesDirectory>
                             <!-- Include the Webpack file outputs -->
                             <includes>
                                 <include>css.bundle.css</include>
-                                <include>index.html</include>
+                                <include>index.1.html</include>
                                 <include>index.js</include>
                             </includes>
                             <outputDirectory>${project.build.directory}</outputDirectory>
