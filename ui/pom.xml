@@ -10,21 +10,38 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ui</artifactId>
-
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <node.version>v14.16.0</node.version>
     </properties>
     <build>
         <plugins>
+            <!-- First phase, we copy the contents of main to target/source. We build here, to ensure node_modules remains in target. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <resources>
+                        <resource>
+                            <directory>src/main</directory>
+                        </resource>
+                    </resources>
+                    <outputDirectory>${build.directory}/source</outputDirectory>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+
+            <!-- Then invoke npm/webpack on the copied resources, producing the output -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.11.2</version>
                 <configuration>
-                    <nodeVersion>v14.16.0</nodeVersion>
-                    <workingDirectory>src/main</workingDirectory>
-                    <installDirectory>target</installDirectory>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <workingDirectory>${build.directory}/source</workingDirectory>
+                    <installDirectory>${build.directory}</installDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -34,22 +51,15 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <!-- optional: default phase is "generate-resources" -->
-                        <phase>generate-resources</phase>
+                        <phase>compile</phase>
                     </execution>
                     <execution>
                     <id>npm install</id>
                     <goals>
                         <goal>npm</goal>
                     </goals>
-
-                    <!-- optional: default phase is "generate-resources" -->
-                    <phase>generate-resources</phase>
-
+                    <phase>compile</phase>
                     <configuration>
-                        <!-- optional: The default argument is actually
-                        "install", so unless you need to run some other npm command,
-                        you can remove this whole <configuration> section.
-                        -->
                         <arguments>install</arguments>
                     </configuration>
                     </execution>
@@ -58,21 +68,15 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
-
-                        <!-- optional: default phase is "generate-resources" -->
-                        <phase>generate-resources</phase>
-
+                        <phase>compile</phase>
+                        <!-- Running the build script via npm. This can be changed by modifying the package.json file -->
                         <configuration>
-                            <!-- optional: The default argument is actually
-                            "install", so unless you need to run some other npm command,
-                            you can remove this whole <configuration> section.
-                            -->
                             <arguments>run-script build</arguments>
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
+            <!-- Finally we copy the built resources into a JAR, for inclusion in other projects -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.0</version>
