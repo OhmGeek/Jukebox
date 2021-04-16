@@ -1,7 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const extractCSS = new ExtractTextPlugin({ filename: 'css.bundle.css' })
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractCSS = new ExtractTextPlugin({ filename: 'css.bundle.css' });
 
 module.exports = {
     entry: './javascript/app.js',
@@ -30,7 +30,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin(),
-        extractCSS
+        extractCSS,
+        new CopyWebpackPlugin({
+            patterns: [
+                {from: './javascript/static/' }
+            ]
+        })
     ]
 };

@@ -1,8 +1,11 @@
-# Jukebox :: UI
-The React-based user interface for the picker.
+# Jukebox :: UI :: Player
+The React-based user interface for the player.
 
 ## How does this work
-This provides a React UI for users to view the queue, select songs, and control the overall system.
+This provides a React UI for users to view:
+- The YouTube player (if backend=YouTube)
+- Currently playing song
+- What's up next
 
 Technologies:
 - Socket.io and JSON is used for communication between client and server
@@ -16,4 +19,4 @@ We use Maven to trigger the build.
 2. webpack is used for building the UI (JS and HTML)
 3. We then package this as a JAR, so we can integrate this into the wider application.
 
-The goal here is to make the integration with the wider server as smooth as possible. 
+The goal here is to make the integration with the wider server as smooth as possible.
