@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>UraDJ Playback</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/2.0.18/plyr.css">
+    <style>
+        body {
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        #spotify-player {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<div class="w3-container w3-red w3-center">
+    <h1>The Jukebox</h1>
+</div>
+<div class="w3-container w3-black w3-center">
+    <div id="spotify-player">
+        <video poster="https://aidans-jcr-static.s3.amazonaws.com/images/12015083_10156082914080405_575932.2e16d0ba.fill-2000x700.jpg" controls crossorigin>
+        </video>
+    </div>
+</div>
+<div class="w3-container w3-green w3-large w3-cell-row">
+    <h2 class="w3-margin-left w3-cell-middle w3-left"><b>Now Playing: </b><span id="song-title">Unknown</span></h2>
+    <div class="w3-padding w3-right">Queue songs at: <span id="picker-url">jukebox.st-aidans.com</span></b>
+    </div>
+</div>
+<div class="w3-container">
+    <h2>Up Next:</h2>
+    <ul class="w3-ul" id="up-next-list">
+
+    </ul>
+</div>
+<!-- JavaScript -->
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.plyr.io/2.0.18/plyr.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
