@@ -21,6 +21,7 @@
     <modules>
         <module>domain</module>
         <module>server</module>
+        <module>ui</module>
     </modules>
     <name>jukebox-server</name>
     <description>Jukebox Server, following same API as the previous UraDJ system</description>

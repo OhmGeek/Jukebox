@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jukebox</artifactId>
+        <groupId>com.ohmgeek</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ui</artifactId>
+    <name>Jukebox :: UI :: Player</name>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <node.version>v14.16.0</node.version>
+    </properties>
+    <build>
+        <plugins>
+            <!-- First phase, we copy the contents of main to target/source. We build here, to ensure node_modules remains in target. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <resources>
+                        <resource>
+                            <directory>src/main</directory>
+                        </resource>
+                    </resources>
+                    <outputDirectory>${build.directory}/source</outputDirectory>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+
+            <!-- Then invoke npm/webpack on the copied resources, producing the output -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.11.2</version>
+                <configuration>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <workingDirectory>${build.directory}/source</workingDirectory>
+                    <installDirectory>${build.directory}</installDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- optional: you don't really need execution ids, but it looks nice in your build log. -->
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <!-- optional: default phase is "generate-resources" -->
+                        <phase>compile</phase>
+                    </execution>
+                    <execution>
+                    <id>npm install</id>
+                    <goals>
+                        <goal>npm</goal>
+                    </goals>
+                    <phase>compile</phase>
+                    <configuration>
+                        <arguments>install</arguments>
+                    </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <!-- Running the build script via npm. This can be changed by modifying the package.json file -->
+                        <configuration>
+                            <arguments>run-script build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Finally we copy the built resources into a JAR, for inclusion in other projects -->
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classesDirectory>${project.build.directory}/source/target/dist</classesDirectory>
+                            <!-- Include the Webpack file outputs -->
+                            <includes>
+                                <include>css.bundle.css</include>
+                                <include>index.1.html</include>
+                                <include>index.js</include>
+                            </includes>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

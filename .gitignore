@@ -25,5 +25,9 @@ hs_err_pid*
 # IntelliJ
 .idea/
 *.iml
+
 # Build folders
 target/
+
+# JavaScript
+node_modules/
